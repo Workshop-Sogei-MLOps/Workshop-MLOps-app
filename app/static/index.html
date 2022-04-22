@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link href="css/styles.css" rel="stylesheet">
+<script type="text/javascript" src="javascript/javascript.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+<script>
+
+function sendPayloadToDeployment( img_data )
+{
+    //console.log(img_data)
+    document.getElementById( 'results_spinner' ).style.display = 'block';
+    
+    var deployment_type = document.querySelector( 'input[name="deployment_type"]:checked' ).value;
+
+    $.ajax( { method      : "POST",
+              url         : "./" + deployment_type,
+              contentType : "application/json",
+              data        : JSON.stringify( img_data ),
+              dataType    : "json",
+              success     : function( result ){ processresultHandler( result ) }
+            } );
+
+}
+
+</script>
+
+<div id='instructions_div'>
+<h3>Instructions</h3>
+<ol>
+<li>Draw a single digit ( 0 - 9 ) in the box using your mouse</li>
+<li>Choose whether to prepare the image data to be sent to a model deployment or to a function deployment</li>
+<li>Then click <b>Analyze</b></li>
+</ol>
+</div>
+
+<div id='canvas_div'>
+<h4>Canvas</h4>
+<canvas id='drawing_box'
+        onmousedown = 'start_drawing(event);' 
+        onmouseup   = 'stop_drawing(event);'
+        onmouseout  = 'stop_drawing(event);'
+        onmousemove = 'draw_line(event);'
+        height="200",
+        width="200"
+        title="Draw a single digit ( 0 - 9 ) here using your mouse">
+</canvas>
+</div>
+
+<div id="radio_btn_div">
+<input type="radio" class="radio_btn" name="deployment_type" value="sendtomodel" checked title="Send preprocessed data to a model deployment" onchange='revertImage();'>Model deployment<br/>
+</div>
+<button id='submit_button' onclick='submit_drawing();'   title='Submit current drawing for analysis'>Analyze</button>
+<button id='clear_button'  onclick='clear_everything();' title='Clear drawing and results'>Clear</button>
+
+<div id='payload_div'>
+<h4>Generated payload</h4>
+<pre id='payload_pre'     class='results_pre' ></pre>
+<div id='payload_spinner' class='spinner'></div>
+</div>
+
+<div id='results_div'>
+<h4>Returned classification</h4>
+<pre id='results_pre'     class='results_pre'></pre>
+<div id='results_spinner' class='spinner'></div>
+</div>
+
+</body>
+
+</html>
+
