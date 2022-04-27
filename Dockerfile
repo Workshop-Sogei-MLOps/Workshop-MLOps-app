@@ -10,6 +10,8 @@ RUN pip install --upgrade pip \
 
 COPY . /app
 
+EXPOSE 8000
+
 ENTRYPOINT [ "python" ]
 
 CMD [ "server.py" ]
