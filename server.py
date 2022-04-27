@@ -29,7 +29,7 @@ def createPayload( canvas_data ):
     img           = Image.fromarray(rgba_arr, 'RGBA')     # Create an image object that can be resized
     sm_img        = img.resize((28, 28), Image.LANCZOS) # Resize the image to 28 x 28 pixels
     alpha_list    = getNormAlphaList(sm_img)              # Create a 1 x 784 array of values between 0 and 1
-    alpha_list    = alpha_list.reshape((1,28,28))
+    alpha_list    = alpha_list.reshape((1,28,28,1))
     model_payload = {"input_data": [{"values" : alpha_list.tolist()}]} 
     return model_payload
 
