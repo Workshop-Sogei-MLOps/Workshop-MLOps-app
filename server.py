@@ -9,7 +9,7 @@ import requests
 
 token = os.environ['TOKEN']
 deployment_id = os.environ['DEPLOYMENT_ID']
-model_deployment_endpoint_url    = f'https://cpd-cpd-instance.itzroks-666000zj44-mn5nm2-4b4a324f027aea19c5cbc0c3275c4656-0000.eu-de.containers.appdomain.cloud/ml/v4/deployments/{deployment_id}/predictions?version=2022-04-21';
+model_deployment_endpoint_url    = f'https://cpd-cpd-instance.itzroks-666000bp6z-7yydnn-4b4a324f027aea19c5cbc0c3275c4656-0000.eu-de.containers.appdomain.cloud/ml/v4/deployments/{deployment_id}/predictions?version=2022-04-21';
 
 def createPayload( canvas_data ):
     import numpy as np
